@@ -1,0 +1,20 @@
+<div class="container vh-100 d-flex justify-content-center align-items-center">
+  <div class="card" style="width: 20rem;">
+    <div class="card-body">
+      <img src="assets/logo.png" alt="Logo" class="img-fluid mb-3" style="width: 100%;">
+      <form (keydown.enter)="logeo()">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Usuario</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" [(ngModel)]="username" name="username" required>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+          <input type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="password" name="password" required>
+        </div>
+        <div class="d-grid gap-2">
+          <button type="button" class="btn btn-primary" (click)="logeo()">Iniciar sesión</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

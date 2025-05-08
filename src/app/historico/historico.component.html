@@ -1,0 +1,149 @@
+<div class="container-fluid mt-5 pt-3">
+    <div class="row">
+      <div class="col">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Expedientes</h2>
+          <img src="../../assets/logo.png" alt="Logo de la Empresa" class="img-fluid" style="max-height: 50px;">
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div>
+            <h2>Bienvenid&#64;, {{ userLogeado }}</h2>
+          </div>
+          <div>
+            <button mat-raised-button color="warn" (click)="logout()">
+              Cerrar sesión
+            </button>
+            
+            
+          </div>
+        </div>
+        <div *ngIf="isLoading" class="spinner-overlay d-flex justify-content-center align-items-center">
+          <mat-spinner></mat-spinner>
+        </div>
+        <div class="row mt-3">
+          <!-- Buscador por Expediente -->
+          <div class="col-auto">
+            <mat-form-field appearance="fill">
+              <mat-label>Buscar por Expediente</mat-label>
+              <input matInput placeholder="Buscar por Nro. Expediente" [(ngModel)]="searchQuery" (ngModelChange)="applyFilters2()">
+            </mat-form-field>
+          </div>
+  
+          <!-- Select de Mes -->
+          <div class="col-auto">
+            <mat-form-field appearance="fill">
+              <mat-label>Mes</mat-label>
+              <mat-select [(value)]="selectedMonth" (selectionChange)="applyFilters()">
+                <mat-option *ngFor="let month of months" [value]="month.number">{{ month.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+  
+          <!-- Select de Año -->
+          <div class="col-auto">
+            <mat-form-field appearance="fill">
+              <mat-label>Año</mat-label>
+              <mat-select [(value)]="selectedYear" (selectionChange)="applyFilters()">
+                <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- Botones de filtro -->
+        <div class="row mt-3 justify-content-start">
+          <div class="col-auto">
+            <button mat-button
+                    class="btn p-3"
+                    [class.btn-success]="datoInicio !== 'CO'"
+                    [class.btn-primary]="datoInicio === 'CO'"
+                    (click)="handleButtonClick('CO')">
+                    ESPECIALIDADES
+            </button>
+          </div>
+        </div>
+        
+  
+        <!-- Tabla de expedientes -->
+        <table mat-table [dataSource]="dataSource" matSort class="table table-striped mt-4">    
+  
+          <ng-container matColumnDef="nro_expediente">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nro. Expediente </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.nro_expediente }}
+              <!-- Mostrar el nombre del usuario debajo del número de expediente si está siendo editado -->
+              <div class="editing-user-name">
+                {{ editingUsers[element.nro_expediente] }}
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="usuario">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.usuario_nombre }}
+            </td>
+          </ng-container>
+          
+  
+          <ng-container matColumnDef="fecha_ingreso">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+            <td mat-cell *matCellDef="let element"> 
+              {{ element.fecha_cambio | date: 'dd/MM/yyyy HH:mm' }} 
+            </td>
+          </ng-container>
+          
+  
+          <ng-container matColumnDef="estado">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado/Numero </th>
+            <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': '#' + element.color }">
+              {{ element.estado }}
+            </td>
+          </ng-container>
+          
+  
+          <ng-container matColumnDef="materia">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Materia </th>
+            <td mat-cell *matCellDef="let element" 
+                [ngClass]="{
+                  'dark-green-bg': element.materia === 'EJECUCION DE GARANTIAS', 
+                  'purple-bg': element.materia === 'OBLIGACION DE DAR SUMA DE DINERO'
+                }">
+              {{ element.materia }}
+            </td>
+          </ng-container>
+          
+          
+          
+  
+          <ng-container matColumnDef="telefono">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Numeros </th>
+            <td mat-cell *matCellDef="let element"> {{ element.telefono }} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="monto">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Monto </th>
+            <td mat-cell *matCellDef="let element"> {{ element.monto }} </td>
+          </ng-container>
+  
+          <!-- Columna de acciones: solo botón de Editar -->
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-button color="primary">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+  
+          <!-- Filas de la tabla -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        
+        </table>
+  
+        <!-- Paginación -->
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[10,100,500,1000]" showFirstLastButtons></mat-paginator>
+      </div>
+    </div>
+  </div>
+  

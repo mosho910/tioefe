@@ -1,0 +1,37 @@
+<div class="modal-header">
+    <h4 class="modal-title">Crear Kit de Productos</h4>
+    <div class="ml-auto text-right" style="margin-left: 50px;">
+      <span>Total:&nbsp;&nbsp;<b>S/. {{ calculateTotalPrice() | number:'1.2-2' }}</b></span>
+      <br>
+      <span>Monto Final:&nbsp;&nbsp;<b>S/. {{ finalAmount | number:'1.2-2' }}</b></span>
+    </div>
+  </div>
+  
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="kitName">Nombre del Kit</label>
+      <br><br>
+      <input type="text" class="form-control" id="kitName" [(ngModel)]="kitName" placeholder="Ingrese nombre del kit">
+    </div>
+    <br>
+    <div class="form-group">
+      <label for="kitQuantity">Cantidad de Kits</label>
+      <input type="number" class="form-control" id="kitQuantity" [(ngModel)]="kitQuantity" placeholder="Ingrese la cantidad" (input)="updateFinalAmount()">
+    </div>
+    <br>
+    <div class="form-group">
+      <input type="text" class="form-control mb-3" [(ngModel)]="searchTerm" placeholder="Buscar producto">
+    </div>
+  
+    <div class="product-list" style="max-height: 300px; overflow-y: auto;">
+      <div *ngFor="let product of filteredProducts()">
+        <input type="checkbox" [(ngModel)]="product.selected" (change)="updateTotalPrice()" />
+        &nbsp;<b>{{ product.id }}</b> - {{ product.descripcion }} - S/. {{ product.precio_u | number:'1.2-2' }}
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Cancel click')">Cancelar</button>
+    <button type="button" class="btn btn-primary" (click)="saveKit()">Guardar Kit</button>
+  </div>
+  

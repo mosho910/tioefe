@@ -1,0 +1,68 @@
+
+
+button.mat-button {
+    background-color: #4caf50 !important;  /* Cambiar el color de fondo a verde */
+    color: white !important;               /* Asegurarse de que el texto sea blanco */
+  }
+  
+  button.mat-button:hover {
+    background-color: #45a049 !important;  /* Cambiar color de fondo en hover */
+  }
+  
+  .spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Fondo semi-transparente */
+    z-index: 9999; /* Asegura que el spinner esté por encima de todo */
+  }
+  .dark-green-bg {
+    background-color: darkgreen;
+    color:white;
+  }
+  .purple-bg {
+    background-color: purple;
+    color: white;
+  }
+
+  /* Reducir el tamaño de la fuente de la tabla */
+.mat-header-cell, .mat-cell {
+  font-size: 14px; /* Ajusta según tu necesidad */
+  padding: 6px 12px; /* Reduce el padding de las celdas */
+}
+
+/* Reducir el espacio entre las filas */
+.mat-row, .mat-header-row {
+  height: 35px; /* Ajusta según el espaciado que desees */
+}
+
+/* Cambiar el tamaño del ícono de la tabla para hacerlo más pequeño */
+.mat-icon {
+  font-size: 18px; /* Ajusta el tamaño del ícono */
+}
+
+/* Reducir los márgenes de los botones en la tabla */
+.mat-button {
+  padding: 6px 12px; /* Ajusta el padding según el tamaño que desees */
+}
+.editing-indicator {
+  color: #ff9800;  /* Un color distintivo para el indicador */
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.mat-button[disabled] {
+  cursor: not-allowed;
+}
+
+/* Estilo para las filas que están siendo editadas */
+.editing {
+  background-color: #f8d7da;  /* Fondo rojo claro */
+  color: #721c24;  /* Texto rojo oscuro */
+}
+
+.editing .mat-cell {
+  font-weight: bold;  /* Texto en negrita */
+}

@@ -1,0 +1,84 @@
+<div class="modal-header">
+  <h5 class="modal-title">Editar Expediente - {{ product.nro_expediente }}</h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div *ngIf="isLoading" class="spinner-overlay d-flex justify-content-center align-items-center">
+  <mat-spinner></mat-spinner>
+</div>
+<div class="modal-body">
+  <form #editForm="ngForm">
+    <div class="mb-3 d-flex align-items-center">
+      <div class="flex-grow-1">
+        <label for="demandados" class="form-label">Demandado</label>
+        <img src="assets/imputado.jpg" alt="Icono" width="30" height="30" class="ms-2">
+        <input 
+          type="text" 
+          class="form-control" 
+          id="demandados" 
+          [(ngModel)]="product.demandados" 
+          name="demandados" 
+          required 
+          [disabled]="product.demandados ? true : false">
+      </div>
+    </div>    
+    <div class="mb-3">
+      <label for="demandante" class="form-label">Demandante</label>
+      <img src="assets/deman.png" alt="Icono" width="30" height="30" class="ms-2">
+      <input 
+        type="text" 
+        class="form-control" 
+        id="demandante" 
+        [(ngModel)]="product.demandante" 
+        name="demandante" 
+        required 
+        [disabled]="product.demandante ? true : false">
+    </div>
+    
+
+    
+    <div class="mb-3">
+      <label for="estado" class="form-label">Estado/Numero</label>
+      <input type="text" class="form-control" id="estado" [(ngModel)]="product.estado" name="estado" required>
+    </div>
+    <div class="mb-3">
+      <label for="dni" class="form-label">DNI</label>
+      <div class="input-group">
+        <input 
+          type="text" 
+          class="form-control" 
+          id="dni" 
+          [(ngModel)]="product.dni" 
+          name="dni">
+        <button class="btn btn-outline-secondary" type="button" (click)="getDemandadosValue()">
+          <i class="bi bi-search"></i> <!-- Icono de lupa usando Bootstrap Icons -->
+        </button>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="telefono" class="form-label">Numeros</label>
+      <input type="text" class="form-control"
+             id="telefono"
+             [(ngModel)]="product.telefono"
+             name="telefono"
+             [ngStyle]="{'background-color': product.selectedColor}">
+    </div>
+    
+    <div class="mb-3">
+      <label for="colorPicker" class="form-label">Selecciona un color</label>
+      <div class="color-options">
+        <button type="button" class="color-btn" [style.background-color]="'#4CAF50'" (click)="setColor('#4CAF50')">Verde</button>
+        <button type="button" class="color-btn" [style.background-color]="'#FFEB3B'" (click)="setColor('#FFEB3B')">Amarillo</button>
+        <button type="button" class="color-btn" [style.background-color]="'#F44336'" (click)="setColor('#F44336')">Rojo</button>
+      </div>
+    </div>
+    <!-- Nuevo campo de observación -->
+    <div class="mb-3">
+      <label for="observaciones" class="form-label">Observaciones</label>
+      <textarea class="form-control" maxlength="255" id="observaciones" [(ngModel)]="product.observaciones" name="observaciones" rows="4"></textarea>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Cancel click')">Cancelar</button>
+  <button type="button" class="btn btn-primary" (click)="saveChanges()">Guardar</button>
+</div>

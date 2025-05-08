@@ -1,0 +1,118 @@
+<div class="container-fluid mt-5 pt-3">
+  <div class="row">
+    <div class="col">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">Expedientes</h2>
+      
+        <div class="d-flex align-items-center">
+          <!-- Logo más grande -->
+          <img src="../../assets/logo.png" alt="Logo de la Empresa" class="img-fluid me-4" style="max-height: 60px;">
+      
+          <!-- Botón de cerrar sesión más grande -->
+          <button class="btn btn-danger px-3 py-2" (click)="logout()" title="Cerrar sesión">
+            <i class="fas fa-sign-out-alt me-2"></i> Cerrar sesión
+          </button>
+        </div>
+      </div>
+      
+      
+
+      <!-- Spinner de carga centrado -->
+      <div *ngIf="isLoading" class="spinner-overlay">
+        <mat-spinner></mat-spinner> <!-- Spinner de Angular Material -->
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-3 mb-2 d-flex align-items-center">
+          <!-- Campo de búsqueda -->
+          <input type="text" class="form-control" placeholder="Buscar por nombre" [(ngModel)]="searchQuery" (keyup.enter)="applyFilters2()" />
+          <!-- Lupa al lado derecho del input, alineada verticalmente -->
+          <i class="fas fa-search ms-2" style="font-size: 18px; color: #6c757d; cursor: pointer;" (click)="applyFilters2()"></i>
+        </div>
+
+        <div class="col-md-2 mb-2">
+          <select class="form-control" [(ngModel)]="selectedMonth" (change)="applyFilters()">
+            <option *ngFor="let m of months" [value]="m.number">{{ m.name }}</option>
+          </select>
+        </div>
+
+        <div class="col-md-2 mb-2">
+          <select class="form-control" [(ngModel)]="selectedYear" (change)="applyFilters()">
+            <option *ngFor="let anio of years">{{ anio }}</option>
+          </select>
+        </div>
+
+        <div class="col-md-3 mb-2">
+          <select class="form-control" [(ngModel)]="selectedCiudad" (change)="applyFilters()">
+            <option *ngFor="let d of distritosJudiciales" [value]="d.codigo">{{ d.descripcion }}</option>
+          </select>
+        </div>
+
+        <!-- Nuevo select para especialidades -->
+        <div class="col-md-3 mb-2">
+          <select class="form-control" [(ngModel)]="datoInicio" (change)="applyFilters()">
+            <option value="CI">CIVIL</option>
+            <option value="CO">COMERCIAL</option>
+            <option value="CA">CONTENCIOSO ADM.</option>
+            <option value="DC">DERECHO CONSTITUCIONAL</option>
+            <option value="FC">FAMILIA CIVIL</option>
+            <option value="FP">FAMILIA PENAL</option>
+            <option value="FT">FAMILIA TUTELAR</option>
+            <option value="LA">LABORAL</option>
+            <option value="PE">PENAL</option>
+          </select>
+        </div>
+        <div class="col-md-3 mb-2">
+          <select class="form-control" [(ngModel)]="selectedInstancia" (change)="applyFilters()">
+            <option value="JP">JUZGADO DE PAZ LETRADO</option>
+            <option value="JR">JUZGADO ESPECIALIZADO</option>
+            <option value="JM">JUZGADO MIXTO</option>
+            <option value="SP">SALA SUPERIOR</option>
+            <option value="SS">SALA SUPREMA</option>
+          </select>
+        </div>        
+      </div>
+
+      <table id="productTable" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Nro. Expediente</th>
+            <th>Fecha</th>
+            <th>Estado/Numero</th>
+            <th>Materia</th>
+            <th>Numeros</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products" (click)="editRow(product)">
+            <td [ngClass]="{ 'editing': editingUsers[product.nro_expediente] }" 
+                (click)="onLeftClick($event, product.nro_expediente)" 
+                style="cursor: pointer;">
+              <span class="fw-bold text-primary">{{ product.nro_expediente }}</span>
+              <div *ngIf="editingUsers[product.nro_expediente]" class="text-danger small">
+                Editando: {{ editingUsers[product.nro_expediente] }}
+              </div>
+            </td>
+            <td>{{ product.fecha_ingreso | date: 'dd/MM/yyyy' }}</td>
+            <td [ngStyle]="{ 'background-color': '#' + product.color }">
+              {{ product.estado }}
+            </td>
+            <td [ngClass]="{
+                'materia-morada': product.materia === 'OBLIGACION DE DAR SUMA DE DINERO',
+                'materia-verde': product.materia === 'EJECUCION DE GARANTIAS'
+              }">
+              {{ product.materia }}
+            </td>
+            <td>{{ product.telefono }}</td>
+            <td>
+              <button class="btn btn-primary btn-sm me-2" (click)="editProduct(product)">
+                <i class="fas fa-edit"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

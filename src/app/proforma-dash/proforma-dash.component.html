@@ -1,0 +1,47 @@
+<div class="container-fluid mt-5 pt-3">
+    <div class="row">
+      <div class="col">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>
+            Cotizaciones
+            <a class="btn btn-outline-secondary btn-sm ms-2" href="/dashboard" title="Ir al principal">
+              <i class="fas fa-home"></i>
+            </a>
+          </h2>
+          <!-- Logo de la empresa a la derecha -->
+          <img src="../../assets/logo.png" alt="Logo de la Empresa" class="img-fluid" style="max-height: 50px;">
+        </div>
+        <button class="btn btn-success mb-3" (click)="openProformaModal()">Crear Cotización</button>
+        <table id="productTable" class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>ID</th>
+              <th>Descripcion</th>
+              <th>Precio Unitario</th>
+              <th>Rendimiento</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of products; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ product.id }}</td>
+              <td>{{ product.descripcion }}</td>
+              <td>S/. {{ product.precio_u }}</td>
+              <td>{{ product.rendimiento }}</td>
+              <td>
+                <button class="btn btn-primary btn-sm me-2">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-danger btn-sm">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

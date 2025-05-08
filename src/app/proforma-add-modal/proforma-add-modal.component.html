@@ -1,0 +1,91 @@
+<div class="modal-header">
+  <h5 class="modal-title">Crear Cotización</h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+  <form>
+    <div class="row">
+      <!-- Campo Cliente -->
+      <div class="col-md-6 mb-3">
+        <label for="cliente" class="form-label">Cliente</label>
+        <input type="text" class="form-control" id="cliente" [(ngModel)]="proforma.cliente" name="cliente">
+      </div>
+
+      <!-- Campo Empresa -->
+      <div class="col-md-6 mb-3">
+        <label for="empresa" class="form-label">Empresa</label>
+        <input type="text" class="form-control" id="empresa" [(ngModel)]="proforma.empresa" name="empresa">
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Campo RUC -->
+      <div class="col-md-6 mb-3">
+        <label for="ruc" class="form-label">RUC</label>
+        <input type="text" class="form-control" id="ruc" [(ngModel)]="proforma.ruc" name="ruc">
+      </div>
+
+      <!-- Campo Ubicación -->
+      <div class="col-md-6 mb-3">
+        <label for="ubicacion" class="form-label">Ubicación</label>
+        <input type="text" class="form-control" id="ubicacion" [(ngModel)]="proforma.ubicacion" name="ubicacion">
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Campo Proyecto -->
+      <div class="col-md-6 mb-3">
+        <label for="proyecto" class="form-label">Proyecto</label>
+        <input type="text" class="form-control" id="proyecto" [(ngModel)]="proforma.proyecto" name="proyecto">
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="contacto" class="form-label">Contacto</label>
+        <input type="text" class="form-control" id="contacto" [(ngModel)]="proforma.contacto" name="contacto">
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Campo Presupuesto -->
+      <div class="col-md-10 mb-3">
+        <label for="presupuesto" class="form-label">Presupuesto</label>
+        <input type="text" class="form-control" id="presupuesto" [(ngModel)]="proforma.presupuesto" name="presupuesto">
+      </div>
+      <!-- Campo Moneda -->
+      <div class="col-md-2 mb-3">
+        <label for="moneda" class="form-label">Moneda</label>
+        <select class="form-select" id="moneda" [(ngModel)]="proforma.moneda" name="moneda">
+          <option value="1">Soles (PEN)</option>
+          <!-- Agrega más opciones de moneda si es necesario -->
+        </select>
+      </div>
+      
+    </div>
+
+    <!-- Sección para agregar kits -->
+    <div class="row">
+      <div class="col-md-12 mb-3">
+        <label for="kit" class="form-label">Kit(s)</label>
+        <div class="input-group">
+          <button type="button" class="btn btn-outline-primary" (click)="addKit()">Agregar Kit</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Listado de kits agregados -->
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let kit of proforma.kits">
+            {{ kit.nombre }}
+            <button type="button" class="btn btn-sm btn-danger float-end" (click)="removeKit(kit)">Eliminar</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Cancel click')">Cancelar</button>
+  <button type="button" class="btn btn-primary" (click)="saveChanges()">Guardar</button>
+</div>

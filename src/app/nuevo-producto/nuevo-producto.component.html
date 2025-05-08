@@ -1,0 +1,29 @@
+<div class="modal-header">
+    <h5 class="modal-title">Agregar Producto</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+        <div class="mb-3">
+            <label for="productName" class="form-label">Id</label>
+            <input type="text" class="form-control" id="productName" [(ngModel)]="product.id" name="id">
+          </div>
+      <div class="mb-3">
+        <label for="productName" class="form-label">Descripcion</label>
+        <input type="text" class="form-control" id="productName" [(ngModel)]="product.descripcion" name="descripcion">
+      </div>
+      <div class="mb-3">
+        <label for="productPrice" class="form-label">Precio Unitario</label>
+        <input type="number" class="form-control" id="productPrice" [(ngModel)]="product.precio_u" name="precio_u">
+      </div>
+      <div class="mb-3">
+        <label for="productRendimiento" class="form-label">Rendimiento</label>
+        <input type="text" class="form-control" id="productRendimiento" [(ngModel)]="product.rendimiento" name="rendimiento">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Cancel click')">Cancelar</button>
+    <button type="button" class="btn btn-primary" (click)="saveChanges()">Guardar</button>
+  </div>
+  
