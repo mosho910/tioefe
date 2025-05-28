@@ -80,6 +80,7 @@
             <th>Fecha</th>
             <th>Estado/Numero</th>
             <th>Materia</th>
+            <th>Jurisdicción</th>
             <th>Numeros</th>
             <th>Acciones</th>
           </tr>
@@ -104,6 +105,7 @@
               }">
               {{ product.materia }}
             </td>
+            <td>{{ product.organo_jurisdiccional }}</td>
             <td>{{ product.telefono }}</td>
             <td>
               <button class="btn btn-primary btn-sm me-2" (click)="editProduct(product)">

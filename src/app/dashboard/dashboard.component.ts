@@ -157,11 +157,12 @@ export class DashboardComponent implements OnInit {
       console.log("Producto encontrado, actualizando...");
       this.products[index] = updatedProduct;
       this.dataSource.data = this.products
-    } else {
-      console.log("Producto no encontrado, agregando nuevo...");
-      this.products.push(updatedProduct);
-      this.dataSource.data = this.products
-    }
+    } 
+    // else {
+    //   console.log("Producto no encontrado, agregando nuevo...");
+    //   this.products.push(updatedProduct);
+    //   this.dataSource.data = this.products
+    // }
   }
   
   ngAfterViewInit() {
