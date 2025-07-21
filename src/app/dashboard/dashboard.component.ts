@@ -55,7 +55,7 @@ export class DashboardComponent implements OnInit {
     { number: 11, name: 'Noviembre' },
     { number: 12, name: 'Diciembre' }
   ];  
-  years = [2023, 2024, 2025];
+  years = [2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016]
   selectedCiudad: string = "18"; // Código de Lima
 
   distritosJudiciales = [
@@ -278,16 +278,29 @@ export class DashboardComponent implements OnInit {
       if (result) {
 
         this.productService.getProducts(this.datoInicio, this.selectedYear, this.selectedMonth).subscribe(
-          (data: any[]) => {
-            this.products = data;
-            this.dataSource.data = data;
-            this.isLoading = false;
-          },
-          (error: any) => {
-            this.isLoading = false;
-            console.error('Error fetching products', error);
-          }
-        );
+      (data: any[]) => {
+        this.products = data.filter(product => {
+          const bloques = product.nro_expediente.split('-');
+  
+          // Validamos que haya al menos 5 bloques
+          if (bloques.length < 5) return false;
+  
+          const ciudadOk = this.selectedCiudad ? bloques[3].slice(0, 2) === this.selectedCiudad : true;
+          const instanciaOk = this.selectedInstancia ? bloques[4] === this.selectedInstancia : true;
+  
+          return ciudadOk && instanciaOk;
+        });
+  
+        this.dataSource.data = this.products;
+        console.log(this.dataSource.data);
+  
+        this.isLoading = false;
+      },
+      (error: any) => {
+        this.isLoading = false;
+        console.error('Error fetching products', error);
+      }
+    );
           this.stopEditing(product.nro_expediente);
 
       }
