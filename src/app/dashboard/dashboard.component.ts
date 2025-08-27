@@ -54,8 +54,8 @@ export class DashboardComponent implements OnInit {
     { number: 10, name: 'Octubre' },
     { number: 11, name: 'Noviembre' },
     { number: 12, name: 'Diciembre' }
-  ];  
-  years = [2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016]
+  ];
+  years = [2025,2024,2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016]
   selectedCiudad: string = "18"; // Código de Lima
 
   distritosJudiciales = [
@@ -443,10 +443,15 @@ export class DashboardComponent implements OnInit {
 
   editRow(row: any): void {
     // Verificar si el producto está siendo editado por otro usuario
-    if (this.isEditing(row) && this.editingUsers[row.nro_expediente] !== this.userLogeado) {
+    if (
+      this.isEditing(row) &&
+      this.editingUsers[row.nro_expediente] !== this.userLogeado &&
+      this.userLogeado !== 'tioefe' // Permitir a tioefe continuar
+    ) {
       alert('Este expediente ya está siendo editado por otro usuario.');
-      return;  // No permitir la edición si otro usuario lo está editando
+      return;
     }
+
   
     // Si no está siendo editado por otro usuario, entonces proceder a la edición
     if (this.editingProductId && this.editingProductId !== row.nro_expediente) {
